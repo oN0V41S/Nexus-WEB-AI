@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: nexus-webui
+    ports:
+      - "3000:8080"
+    volumes:
+      - open-webui-data:/app/backend/data
+      - ./_data:/app/backend/data
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      PINECONE_API_KEY: ${PINECONE_API_KEY}
+      PINECONE_INDEX_NAME: ${PINECONE_INDEX_NAME}
+      PINECONE_ENVIRONMENT: ${PINECONE_ENVIRONMENT}
+      VECTOR_DB: ${VECTOR_DB}
+      ENABLE_RAG: ${ENABLE_RAG}
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY}
+      WEBUI_AUTH: ${WEBUI_AUTH}
+    restart: unless-stopped
+
+volumes:
+  open-webui-data:
